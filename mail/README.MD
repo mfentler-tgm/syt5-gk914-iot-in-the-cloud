@@ -30,8 +30,12 @@ Um die Nachrichten dann zu senden wird die Funktion sendMail() verwendet.
 		}
 	}); 
 
-Da OWA ein Certificat verlangt, wird zuerst beim Versuch eine E-Mail zu schreiben ein Fehler auftreten. Diesen umgeht man, in dem man folgende Zeilen in die createTransport Funktion einfügt:  
+Da OWA ein Certificat verlangt, wird zuerst beim Versuch eine E-Mail zu schreiben ein Fehler auftreten. Diesen umgeht man, in dem man folgende Zeilen in die createTransport Funktion einfügt [2]:  
 
 	tls: {
 		rejectUnauthorized: false
 	}
+
+## Sources
+[1] https://www.w3schools.com/nodejs/nodejs_email.asp  
+[2] https://github.com/nodemailer/nodemailer/issues/406  
