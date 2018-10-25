@@ -1,0 +1,17 @@
+{
+  "name": "bspt",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Marc Rousavy, Mario Fentler, Osman Deveci, Christoph Pader-Barosch",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node ./src/app.ts",
+    "build": "tsc ./src/app.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^10.11.3",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.1"
+  }
+}
