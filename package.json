@@ -5,7 +5,7 @@
   "author": "Marc Rousavy, Mario Fentler, Osman Deveci, Christoph Pader-Barosch",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/app.ts",
+    "start": "node ./src/app.js",
     "build": "tsc ./src/app.ts"
   },
   "devDependencies": {
