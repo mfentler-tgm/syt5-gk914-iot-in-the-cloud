@@ -1,4 +1,5 @@
 var nodemailer = require("nodemailer")
+var ip = require("ip")
 
 var transporter = nodemailer.createTransport({
   service: "gmail",
@@ -15,7 +16,7 @@ var mailOptions = {
   from: "shittingPreventionAgent@gmail.com",
   to: ["michaelborko@gmail.com", "chrispad2k@gmail.com"],
   subject: "Email von unserem Raspi",
-  text: "That was easy!"
+  text: `we wish you a merry christmas - IP: ${ip.address()}`
 }
 
 transporter.sendMail(mailOptions, function(error, info) {
