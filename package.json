@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "ip": "^1.1.5",
-    "nodemailer": "^4.6.8"
+    "nodemailer": "^4.6.8",
+    "onoff": "^3.2.2"
   }
 }

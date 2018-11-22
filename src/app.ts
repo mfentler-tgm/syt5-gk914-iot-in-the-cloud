@@ -1,28 +1,17 @@
-var nodemailer = require("nodemailer")
-var ip = require("ip")
 
-var transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "shittingPreventionAgent@gmail.com",
-    pass: "NoShittingAnymore"
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-})
+import { startServer } from './webserver'
+import { sendMail } from './mail'
 
-var mailOptions = {
-  from: "shittingPreventionAgent@gmail.com",
-  to: ["michaelborko@gmail.com", "chrispad2k@gmail.com"],
-  subject: "Email von unserem Raspi",
-  text: `we wish you a merry christmas - IP: ${ip.address()}`
-}
+// var Gpio = require('onoff').Gpio,
+// pir = new Gpio(17, 'in', 'both');
 
-transporter.sendMail(mailOptions, function(error, info) {
-  if (error) {
-    console.log(error)
-  } else {
-    console.log("Email sent: " + info.response)
-  }
-})
+/**
+pir.watch(function(err, value) {
+if (err) exit();
+console.log('Intruder detected!');
+if(value == 1) sendEmail();
+});
+*/
+
+startServer()
+
