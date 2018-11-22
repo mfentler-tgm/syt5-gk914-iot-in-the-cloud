@@ -1,12 +1,19 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
-    "jsRules": {},
-    "rules": {
-        "no-console": false,
-        "semicolon": [true, "never"]
-    },
-    "rulesDirectory": []
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "defaultSeverity": "warning",
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  },
+  "rules": {
+    "semicolon": [true, "never"],
+    "quotemark": [true, "single", "jsx-single"],
+    "jsx-no-lambda": false,
+    "jsx-boolean-value": false,
+    "no-console": false,
+    "only-arrow-functions": false
+  }
 }

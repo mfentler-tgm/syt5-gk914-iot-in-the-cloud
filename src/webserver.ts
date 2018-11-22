@@ -1,14 +1,14 @@
-import fs from "fs"
-import http from "http"
-import path from "path"
-import urlLib from "url"
+import * as fs from "fs"
+import * as http from "http"
+import * as path from "path"
+import * as urlLib from "url"
 
 const PORT: number = 8080
 
 const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
   const { url } = req
   const pwd = process.cwd()
-  const filePath = path.join(pwd, url)
+  const filePath = path.join(pwd, url!)
 
   fs.exists(filePath, (exists) => {
     const responseTypes = {
@@ -42,7 +42,7 @@ const server = http.createServer((req: http.IncomingMessage, res: http.ServerRes
 
             files.map((file) => {
               fileString +=
-                `<li><a href="${urlLib.resolve(`http://localhost:${PORT}`, path.join(url, file))}">${file}</a></li>`
+                `<li><a href="${urlLib.resolve(`http://localhost:${PORT}`, path.join(url!, file))}">${file}</a></li>`
             })
 
             data += `
