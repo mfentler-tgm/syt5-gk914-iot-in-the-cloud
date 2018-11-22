@@ -6,8 +6,5 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./src/app.js"
-  },
-  "dependencies": {
-    "nodemailer": "^4.6.8"
   }
 }
