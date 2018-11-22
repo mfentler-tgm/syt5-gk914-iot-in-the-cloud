@@ -5,15 +5,7 @@
   "author": "Marc Rousavy, Mario Fentler, Osman Deveci, Christoph Pader-Barosch",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/app.ts",
-    "build": "tsc ./src/app.ts"
-  },
-  "devDependencies": {
-    "@types/node": "^10.11.3",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.16.0",
-    "typescript": "^3.1.1"
+    "start": "node ./src/app.js"
   },
   "dependencies": {
     "nodemailer": "^4.6.8"
