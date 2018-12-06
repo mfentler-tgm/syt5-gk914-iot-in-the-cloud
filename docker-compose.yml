@@ -1,5 +1,9 @@
 version: '3.7'
 
+networks: {}
+volumes:
+  resin-data: {}
+
 services:
   main:
     build: ./docker
@@ -17,7 +21,3 @@ services:
         io.balena.update.strategy: download-then-kill
         io.balena.update.handover-timeout: ''
 
-
-networks: {}
-volumes:
-  resin-data: {}
