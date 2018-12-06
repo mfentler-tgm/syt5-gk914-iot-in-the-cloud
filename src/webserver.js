@@ -4,31 +4,13 @@ import * as path from 'path'
 import * as urlLib from 'url'
 const PiCamera = require('pi-camera');
 
-const PORT: number = 8080
-var imgpath = `${ __dirname }/test.jpg`;
-
-const myCamera = new PiCamera({
-  mode: 'photo',
-  output: imgpath,
-  width: 640,
-  height: 480,
-  nopreview: true,
-});
+const PORT = 8080
 
 export const startServer = function () {
-  const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
+  const server = http.createServer((req, res) => {
     const { url } = req
     const pwd = process.cwd()
-    const filePath = path.join(pwd, url!)
-	
-	myCamera.snap()
-	  .then((result) => {
-		res.end(`<html><head></head><body><img src="\(imgpath)"/></body></html>`)
-		return
-	  })
-	  .catch((error) => {
-		 // Handle your error
-	  });
+    const filePath = path.join(pwd, url)
 
     fs.exists(filePath, (exists) => {
       const responseTypes = {
@@ -39,16 +21,16 @@ export const startServer = function () {
       res.writeHead(200, responseTypes.html)
 
       if (exists) {
-        let data: string = `<div>${filePath}</div>`
+        let data = `<div>${filePath}</div>`
 
-        fs.lstat(filePath, (err: NodeJS.ErrnoException, stats: fs.Stats) => {
+        fs.lstat(filePath, (err, stats) => {
           if (err) {
             res.writeHead(200, responseTypes.plain)
             res.end(err.message)
           }
 
           if (stats.isDirectory()) {
-            fs.readdir(filePath, (errIsDir: NodeJS.ErrnoException, files: string[]) => {
+            fs.readdir(filePath, (errIsDir, files) => {
               if (errIsDir) {
                 res.writeHead(200, responseTypes.plain)
                 res.end(err.message)
@@ -62,7 +44,7 @@ export const startServer = function () {
 
               files.map((file) => {
                 fileString +=
-                  `<li><a href="${urlLib.resolve(`http://localhost:${PORT}`, path.join(url!, file))}">${file}</a></li>`
+                  `<li><a href="${urlLib.resolve(`http://localhost:${PORT}`, path.join(url, file))}">${file}</a></li>`
               })
 
               data += `
@@ -75,7 +57,7 @@ export const startServer = function () {
               res.end(data)
             })
           } else if (stats.isFile()) {
-            fs.readFile(filePath, (errIsFile: NodeJS.ErrnoException, content: Buffer) => {
+            fs.readFile(filePath, (errIsFile, content) => {
               if (errIsFile) {
                 res.writeHead(200, responseTypes.plain)
                 res.end(err.message)
