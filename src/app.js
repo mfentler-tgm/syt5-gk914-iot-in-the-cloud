@@ -1,5 +1,11 @@
 // var Gpio = require('onoff').Gpio,
 // pir = new Gpio(17, 'in', 'both');
+var mail = require('mail.js');
+
+print("sending mail")
+
+mail.sendMail()
+
 
 /**
 pir.watch(function(err, value) {
@@ -9,4 +15,4 @@ if(value == 1) sendEmail();
 });
 */
 
-print("yo")
+print("mail sent")
