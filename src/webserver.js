@@ -24,7 +24,7 @@ export const startServer = function() {
 
     myCamera.snap()
       .then((result) => {
-        res.end('<html><head></head><body><img src="\(imgpath)"/></body></html>')
+        res.end(`<html><head></head><body><img src="${imgpath}"/></body></html>`)
         return
       })
       .catch((error) => {

@@ -8,6 +8,7 @@
     "start": "node ./src/app.js"
   },
   "dependencies": {
+    "ip": "^1.1.5",
     "nodemailer": "^4.7.0",
     "pi-camera": "^1.2.1"
   }

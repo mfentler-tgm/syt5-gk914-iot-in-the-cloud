@@ -1,11 +1,8 @@
 // var Gpio = require('onoff').Gpio,
 // pir = new Gpio(17, 'in', 'both');
-var mail = require('mail.js');
-
-print("sending mail")
+var mail = require('./mail')
 
 mail.sendMail()
-
 
 /**
 pir.watch(function(err, value) {
@@ -14,5 +11,3 @@ console.log('Intruder detected!');
 if(value == 1) sendEmail();
 });
 */
-
-print("mail sent")
