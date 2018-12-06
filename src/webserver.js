@@ -1,9 +1,11 @@
 const http = require('http')
 const PiCamera = require('pi-camera')
+const ip = require('ip')
 
 const PORT = 8080
 
 var imgpath = `${__dirname}/test.jpg`
+var address = ip.address()
 
 const myCamera = new PiCamera({
   mode: 'photo',
@@ -18,7 +20,7 @@ module.exports = {
     const server = http.createServer((req, res) => {
       myCamera.snap()
         .then((result) => {
-          res.end(`<html><head></head><body><img src="${imgpath}"/></body></html>`)
+          res.end(`<html><head></head><body><img src="${address}/${imgpath}"/></body></html>`)
           return
         })
         .catch((error) => {
