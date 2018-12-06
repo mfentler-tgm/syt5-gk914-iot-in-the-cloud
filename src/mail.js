@@ -15,11 +15,11 @@ const transporter = nodemailer.createTransport({
 module.exports = {
   sendMail: function() {
     const mailOptions = {
-      from: 'shittingPreventionAgent@gmail.com',
+      from: '"President Donald Trump 💩" <shittingPreventionAgent@gmail.com>',
       to: ['chrispad2k@gmail.com', 'marcrousavy@hotmail.com', 'mfentler@student.tgm.ac.at', 'mborko@tgm.ac.at'],
       subject: 'Basement Shitting Raspberry Camera Picture',
-      text: `Here you can see a picture from our camera: ${ip.address()}\nYours sincerly - Basement Shitting Prevention Team\n\n(For the automatic laser taser system please upgrade to a premium plan for $99.99/year)`,
-      html: `Here you can see a picture from our camera: <a href="${ip.address()}">RASPBERRY PI SERVER</a><br />Embed: <img src="${ip.address()}"/><br/><i>Yours sincerly - Basement Shitting Prevention Team\n\n(For the automatic laser taser system please upgrade to a premium plan for $99.99/year)</i>`
+      text: `Here you can see a picture from our camera: ${ip.address()}\n\r\n\r\n\rYours sincerly - Basement Shitting Prevention Team\n\r\n\r\n\r\n\r\n\r(For the automatic laser taser system please upgrade to a premium plan for $99.99/year)`,
+      html: `Here you can see a picture from our camera: <a href="${ip.address()}">RASPBERRY PI SERVER</a><br />Embed: <img src="${ip.address()}"/><br/><br/><i>Yours sincerly - Basement Shitting Prevention Team <br/><br/><br/><br/>(For the automatic laser taser system please upgrade to a premium plan for $99.99/year)</i>`
     }
 
     transporter.sendMail(mailOptions, function(error, info) {
