@@ -5,7 +5,7 @@ const fs = require('fs');
 const url = require('url');
 
 
-const PORT = 8080
+const PORT = 80
 
 var imgpath = `${__dirname}/test.jpg`
 var address = ip.address()
