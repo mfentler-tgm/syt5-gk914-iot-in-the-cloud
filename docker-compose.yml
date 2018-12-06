@@ -6,7 +6,8 @@ volumes:
 
 services:
   main:
-    build: ./docker
+    build:
+      context: .
     privileged: true
     restart: always
     network_mode: host
