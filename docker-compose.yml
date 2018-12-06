@@ -9,7 +9,6 @@ services:
     build: ./docker
     privileged: true
     restart: always
-      network_mode: host
       volumes:
         - 'resin-data:/data'
       labels:
