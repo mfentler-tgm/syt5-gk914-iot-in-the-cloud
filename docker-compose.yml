@@ -1,16 +1,10 @@
-version: '3.7'
-
-networks: {}
-volumes:
-  resin-data: {}
+version: '3'
 
 services:
   main:
     build: ./docker
     privileged: true
     restart: always
-      volumes:
-        - 'resin-data:/data'
       labels:
         io.balena.features.kernel-modules: '1'
         io.balena.features.firmware: '1'
