@@ -1,9 +1,19 @@
 // var Gpio = require('onoff').Gpio,
 // pir = new Gpio(17, 'in', 'both');
-var mail = require('./mail')
-var webserver = require('./webserver')
+const mail = require('./mail')
+const webserver = require('./webserver')
 
-mail.sendMail()
+var mailEnabled = false
+
+process.argv.slice(1).map((argument) => {
+  if (argument == '-m' || argument == '--mail') {
+    mailEnabled = true
+  }
+})
+
+if (mailEnabled) {
+  mail.sendMail()
+}
 
 webserver.startServer()
 
