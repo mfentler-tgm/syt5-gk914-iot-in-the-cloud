@@ -1,6 +1,9 @@
 const http = require('http')
 const PiCamera = require('pi-camera')
 const ip = require('ip')
+const fs = require('fs');
+const url = require('url');
+
 
 const PORT = 8080
 
@@ -18,10 +21,12 @@ const myCamera = new PiCamera({
 module.exports = {
   startServer: function() {
     const server = http.createServer((req, res) => {
-      myCamera.snap()
+        myCamera.snap()
         .then((result) => {
-          res.end(`<html><head></head><body><img src="${address}/${imgpath}"/></body></html>`)
-          return
+            var img = fs.readFileSync(imgpath);
+            res.writeHead(200, {'Content-Type': 'image/jpg' });
+            res.end(img, 'binary');
+            return
         })
         .catch((error) => {
           res.end(`Error! ${error}`)
