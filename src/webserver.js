@@ -2,20 +2,39 @@ import * as fs from 'fs'
 import * as http from 'http'
 import * as path from 'path'
 import * as urlLib from 'url'
-const PiCamera = require('pi-camera');
+const PiCamera = require('pi-camera')
 
 const PORT = 8080
 
-export const startServer = function () {
+var imgpath = `${__dirname}/test.jpg`
+
+const myCamera = new PiCamera({
+  mode: 'photo',
+  output: imgpath,
+  width: 640,
+  height: 480,
+  nopreview: true
+})
+
+export const startServer = function() {
   const server = http.createServer((req, res) => {
-    const { url } = req
+    const {url} = req
     const pwd = process.cwd()
     const filePath = path.join(pwd, url)
 
+    myCamera.snap()
+      .then((result) => {
+        res.end('<html><head></head><body><img src="\(imgpath)"/></body></html>')
+        return
+      })
+      .catch((error) => {
+        // Handle your error
+      })
+
     fs.exists(filePath, (exists) => {
       const responseTypes = {
-        html: { 'Content-Type': 'text/html' },
-        plain: { 'Content-Type': 'text/plain' },
+        html: {'Content-Type': 'text/html'},
+        plain: {'Content-Type': 'text/plain'}
       }
 
       res.writeHead(200, responseTypes.html)
@@ -37,7 +56,7 @@ export const startServer = function () {
               }
 
               if (files.length === 0) {
-                data += `<div>There are no files in this directory</div>`
+                data += '<div>There are no files in this directory</div>'
               }
 
               let fileString = ''
@@ -82,7 +101,7 @@ export const startServer = function () {
   }).listen(PORT)
 
   server.on('close', () => {
-    console.log(`Server shut down`)
+    console.log('Server shut down')
   })
 
   console.log(`Server running on localhost:${PORT}`)
