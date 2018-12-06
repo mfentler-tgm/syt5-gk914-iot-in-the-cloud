@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 module.exports = {
   sendMail: function() {
     const mailOptions = {
-      from: '"President Donald Trump 💩" <shittingPreventionAgent@gmail.com>',
+      from: '"President Donald Trump 💩" <og.donaldtrump@whitehouse.gov>',
       to: ['chrispad2k@gmail.com', 'marcrousavy@hotmail.com', 'mfentler@student.tgm.ac.at', 'mborko@tgm.ac.at'],
       subject: 'Basement Shitting Raspberry Camera Picture',
       text: `Here you can see a picture from our camera: http://${ip.address()}:80\n\r\n\r\n\rYours sincerly - Basement Shitting Prevention Team\n\r\n\r\n\r\n\r\n\r(For the automatic laser taser system please upgrade to a premium plan for $99.99/year)`,
