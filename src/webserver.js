@@ -2,14 +2,33 @@ import * as fs from 'fs'
 import * as http from 'http'
 import * as path from 'path'
 import * as urlLib from 'url'
+const PiCamera = require('pi-camera');
 
 const PORT: number = 8080
+var imgpath = `${ __dirname }/test.jpg`;
+
+const myCamera = new PiCamera({
+  mode: 'photo',
+  output: imgpath,
+  width: 640,
+  height: 480,
+  nopreview: true,
+});
 
 export const startServer = function () {
   const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
     const { url } = req
     const pwd = process.cwd()
     const filePath = path.join(pwd, url!)
+	
+	myCamera.snap()
+	  .then((result) => {
+		res.end(`<html><head></head><body><img src="\(imgpath)"/></body></html>`)
+		return
+	  })
+	  .catch((error) => {
+		 // Handle your error
+	  });
 
     fs.exists(filePath, (exists) => {
       const responseTypes = {
