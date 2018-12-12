@@ -10,9 +10,19 @@ Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte
 
 ## Recherche
 ### Benachrichtigung des Clients
-Der Client bekommt eine E-Mail Notification sobald ein Sensor vom Raspi etwas wahr nimmt.  
+Der Client bekommt eine E-Mail Notification sobald ein Sensor vom Raspi etwas wahr nimmt.
 Dazu wird NodeMailer verwendet.
 
 ## Implementierung
+
+Als erster Schritt wird ein "Raspbian Linux" Image auf dem Raspberry Pi Zero installiert. Anschließend werden die Dateien  "wpa_supplicant.conf" und eine "ssh" Datei auf die /boot Partition des Raspberry's geladen.
+
+Die "wpa_supplicant.conf" dient zur Netzwerkkonfiguration, da der Raspberry ja sonst nicht über SSH ansprechbar wäre. Die (leere) "ssh" Datei wird benötigt, dass beim Booten SSH am Raspberry aktiviert und erlaub wird.
+
+In der Datei install.sh befinden sich alle wichtigen Befehle, die ausgeführt werden müssen, um die auf GitHub deployte Applikation zu starten und alle benötigten Software-Packages zu installieren.
+
+Es wird ein "apt-get update" & "apt-get upgrade" ausgeführt und anschließend alle Dependencies installiert.
+
+Das Git-Repo wird danach in das Verzeichnis "/app" geladen und anschließend mit "npm start" gestartet.
 
 ## Quellen
