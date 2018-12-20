@@ -25,4 +25,10 @@ Es wird ein "apt-get update" & "apt-get upgrade" ausgeführt und anschließend a
 
 Das Git-Repo wird danach in das Verzeichnis "/app" geladen und anschließend mit "npm start" gestartet.
 
+### Bussysteme
+Beim Raspberry Pi gibt es folgende Bussysteme:  
+- CAN  
+- I2C  
+- SPI
+
 ## Quellen
