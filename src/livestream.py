@@ -8,7 +8,7 @@ import datetime
 from threading import Condition
 from http import server
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
 def motion_detected():
   motion_timestamp = time.time()
