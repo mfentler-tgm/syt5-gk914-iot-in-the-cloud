@@ -9,6 +9,13 @@ from threading import Condition
 from http import server
 
 
+motion_timestamp = None
+GPIO.add_event_detect(17, GPIO.RISING, callback=motion_detected)
+
+def motion_detected():
+  motion_timestamp = time.time()
+
+
 class StreamingOutput(object):
     def __init__(self):
         self.frame = None
@@ -47,7 +54,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             </html>
             """
 
-            ts = time.time()
+            global motion_timestamp
+            ts = motion_timestamp
             st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
             PAGE = PAGE.replace('$$timestamp$$', st)
 
