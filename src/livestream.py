@@ -8,17 +8,17 @@ import datetime
 from threading import Condition
 from http import server
 
-GPIO.setup(17, GPIO.IN)
+# GPIO.setup(17, GPIO.IN)
 
-GPIO.setmode(GPIO.BCM)
+# GPIO.setmode(GPIO.BCM)
 
-def motion_detected():
-  motion_timestamp = time.time()
-  print("Motion Sensor triggered")
+# def motion_detected():
+#   motion_timestamp = time.time()
+#   print("Motion Sensor triggered")
 
 
-motion_timestamp = None
-GPIO.add_event_detect(17, GPIO.RISING, callback=motion_detected)
+# motion_timestamp = None
+# GPIO.add_event_detect(17, GPIO.RISING, callback=motion_detected)
 
 
 class StreamingOutput(object):
@@ -59,8 +59,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             </html>
             """
 
-            global motion_timestamp
-            ts = motion_timestamp
+            # global motion_timestamp
+            ts = time.time()
             st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
             PAGE = PAGE.replace('$$timestamp$$', st)
 
