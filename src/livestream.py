@@ -3,6 +3,8 @@ import picamera
 import logging
 import socketserver
 import RPi.GPIO as GPIO
+import time
+import datetime
 from threading import Condition
 from http import server
 
@@ -43,6 +45,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Location', '/index.html')
             self.end_headers()
         elif self.path == '/index.html':
+            ts = time.time()
+            st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+            PAGE.replace('$$timestamp$$', st)
+
             content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
