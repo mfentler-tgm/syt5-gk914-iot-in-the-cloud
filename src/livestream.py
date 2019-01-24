@@ -14,6 +14,7 @@ GPIO.add_event_detect(17, GPIO.RISING, callback=motion_detected)
 
 def motion_detected():
   motion_timestamp = time.time()
+  print("Motion Sensor triggered")
 
 
 class StreamingOutput(object):
