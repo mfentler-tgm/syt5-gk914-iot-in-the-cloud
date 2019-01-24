@@ -8,7 +8,7 @@ import datetime
 from threading import Condition
 from http import server
 
-GPIO.setup()
+GPIO.setup(17, GPIO.IN)
 
 GPIO.setmode(GPIO.BCM)
 
