@@ -12,6 +12,10 @@ Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte
 ### Benachrichtigung des Clients
 Der Client bekommt eine E-Mail Notification sobald ein Sensor vom Raspi etwas wahr nimmt.
 Dazu wird NodeMailer verwendet.
+Der Raspberry Pi sendet eine E-Mail sobald er gestartet wurde, um seine IP Addresse zu teilen (benötigt für den Web-Zugriff und SSH-Zugriff)
+
+### Livestream
+Die Website soll einen Livestream des Raspberry PI's auf der Website zeigen, hierzu wird folgendes Tutorial verwendet: [raspi-live](https://github.com/jaredpetersen/raspi-live)
 
 ## Implementierung
 
@@ -26,9 +30,9 @@ Es wird ein "apt-get update" & "apt-get upgrade" ausgeführt und anschließend a
 Das Git-Repo wird danach in das Verzeichnis "/app" geladen und anschließend mit "npm start" gestartet.
 
 ### Bussysteme
-Beim Raspberry Pi gibt es folgende Bussysteme:  
-- CAN  
-- I2C  
+Beim Raspberry Pi gibt es folgende Bussysteme:
+- CAN
+- I2C
 - SPI
 
 ## Quellen
