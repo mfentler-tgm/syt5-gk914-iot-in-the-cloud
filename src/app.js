@@ -16,7 +16,7 @@ if (mailEnabled) {
   mail.sendMail()
 }
 
-webserver.startServer()
+// webserver.startServer()
 
 pir.watch(function(err, value) {
   if (err) exit()
