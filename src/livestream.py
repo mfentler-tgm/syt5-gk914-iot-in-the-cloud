@@ -1,11 +1,8 @@
-# Web streaming example
-# Source code from the official PiCamera package
-# http://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming
-
 import io
 import picamera
 import logging
 import socketserver
+import RPi.GPIO as GPIO
 from threading import Condition
 from http import server
 
@@ -17,6 +14,7 @@ PAGE="""\
 <body>
 <center><h1>Raspberry Pi - Surveillance Camera</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
+<center><p>Motion Sensor last triggered: $$timestamp$$</p></center>
 </body>
 </html>
 """
@@ -87,7 +85,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     #camera.rotation = 90
     camera.start_recording(output, format='mjpeg')
     try:
-        address = ('', 8000)
+        address = ('', 80)
         server = StreamingServer(address, StreamingHandler)
         server.serve_forever()
     finally:
