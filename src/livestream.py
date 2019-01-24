@@ -8,7 +8,7 @@ import datetime
 from threading import Condition
 from http import server
 
-PAGE="""\
+global PAGE="""\
 <html>
 <head>
 <title>Raspberry Pi - Surveillance Camera</title>
