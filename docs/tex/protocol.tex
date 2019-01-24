@@ -78,12 +78,16 @@ Bei jeder Rising Edge des Bewegungssensors wird eine Mail an den Besitzer gesend
 \end{listing}
 
 \subsection{Schnittstellendefinition}
-Der Bewegungssensor wird über einen GPIO Pin angesprochen. Die Auswertung am Backend erfolgt über das onoff-Modul. \newline
-
+Der Bewegungssensor wird über einen GPIO Pin angesprochen. Die Auswertung am Backend erfolgt über das onoff-Modul:
+\begin{listing}
+    \begin{code}[firstnumber=last]{js}
+        const Gpio = require('onoff').Gpio
+    \end{code}{js}
+    \caption{Sender der Mail bei Erkennung einer Bewegung bzw. Rising Edge des Sensors}
+\end{listing}
 \subsection{Energieversorgung}
 
 Der Raspberry Pi benötigt eine Stromversorgung über Micro-USB, welche entweder über eine normale Stromanbindung über eine Steckdose oder über ein Akku-pack erreicht wird.
-
 \subsection{Speicherverbrauch}
 
 Das \textbf{Basement Shitting Prevention} Programm benötigt \texttt{2.552} Bytes. Zusätzlich werden einige Packages benötigt, womit ein insgesamter Speicherverbrauch von \texttt{idk} Megabytes verwendet wird.
