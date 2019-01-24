@@ -1,6 +1,6 @@
 const mail = require('./mail')
 const webserver = require('./webserver')
-const Gpio = requiore('onoff').Gpio
+const Gpio = require('onoff').Gpio
 
 const pir = new Gpio(17, 'in', 'both')
 
