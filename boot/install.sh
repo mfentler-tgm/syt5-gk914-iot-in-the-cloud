@@ -19,9 +19,6 @@ npm config set python python2.7
 
 npm install -g raspi-live
 
-raspi-live start -p 3000 &
-
-git clone https://github.com/TGM-HIT/syt5-gk914-iot-in-the-cloud-basement-shitting-prevention-team /app
 cd /app
-npm install
+git pull
 npm start
