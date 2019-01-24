@@ -8,6 +8,8 @@ import datetime
 from threading import Condition
 from http import server
 
+GPIO.setmode(GPIO.BOARD)
+
 def motion_detected():
   motion_timestamp = time.time()
   print("Motion Sensor triggered")
