@@ -1,7 +1,8 @@
-// var Gpio = require('onoff').Gpio,
-// pir = new Gpio(17, 'in', 'both');
 const mail = require('./mail')
 const webserver = require('./webserver')
+const Gpio = requiore('onoff').Gpio
+
+const pir = new Gpio(17, 'in', 'both')
 
 var mailEnabled = false
 
@@ -17,10 +18,17 @@ if (mailEnabled) {
 
 webserver.startServer()
 
-/**
 pir.watch(function(err, value) {
-if (err) exit();
-console.log('Intruder detected!');
-if(value == 1) sendEmail();
-});
-*/
+  if (err) exit()
+
+  console.log('Intruder detected')
+
+  if (value == 1) {
+    mail.sendMail()
+  }
+})
+
+function exit() {
+  pir.unexport()
+  process.exit()
+}
