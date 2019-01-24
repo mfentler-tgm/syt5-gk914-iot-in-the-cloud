@@ -1,4 +1,3 @@
-const PiCamera = require('pi-camera')
 const ip = require('ip')
 const path = require('path')
 const express = require('express')
