@@ -36,7 +36,7 @@ Der Bewegungssensor wird folgendermaßen initialisiert:
 \begin{listing}
     \begin{code}{js}
     const pir = new Gpio(17, 'in', 'both')
-    \end{code}{js}
+    \end{code}
     \caption{GPIO Erstellung in JavaScript}
 \end{listing}
 
@@ -52,7 +52,7 @@ Mittels dem erstellten \texttt{Gpio} Objekt kann ein Callback registriert werden
             mail.sendMail()
         }
     })
-    \end{code}{js}
+    \end{code}
     \caption{GPIO Callback registrierung mittels watch in JavaScript}
 \end{listing}
 
@@ -73,7 +73,7 @@ Bei jeder Rising Edge des Bewegungssensors wird eine Mail an den Besitzer gesend
             mail.sendMail()
         }
     })
-    \end{code}{js}
+    \end{code}
     \caption{Sender der Mail bei Erkennung einer Bewegung bzw. Rising Edge des Sensors}
 \end{listing}
 
@@ -82,7 +82,7 @@ Der Bewegungssensor wird über einen GPIO Pin angesprochen. Die Auswertung am Ba
 \begin{listing}
     \begin{code}[firstnumber=last]{js}
         const Gpio = require('onoff').Gpio
-    \end{code}{js}
+    \end{code}
     \caption{Sender der Mail bei Erkennung einer Bewegung bzw. Rising Edge des Sensors}
 \end{listing}
 \subsection{Energieversorgung}
