@@ -104,5 +104,10 @@ while sendmail() != True:
 break
 ```
 
+Dieses Python File muss auch noch auf __executable__ gesetzt werden. Dazu:  
+```bash
+sudo chmod +x sendIP.py
+```
+
 5. Unmounten
 Als letzter Schritt muss man die SD Karte noch unmounten. Dazu geht man in Linux in den File-Archiver und klickt auf den "Pfeil-Button" rechts neben dem Boot-Folder.
