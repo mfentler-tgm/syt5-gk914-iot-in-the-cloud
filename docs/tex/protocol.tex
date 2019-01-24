@@ -29,15 +29,68 @@ Die initiale Konfiguration des Raspberry Pi's erfolgt mittels der \texttt{raspi-
 
 \subsection{Abtastrate der Informationen}
 
+Da eine fixe Abtastrate ineffizient wäre, wird ein GPIO callback verwendet um ein Bild zu senden.
+
+Der Bewegungssensor wird folgendermaßen initialisiert:
+
+\begin{listing}
+    \begin{code}{js}
+    const pir = new Gpio(17, 'in', 'both')
+    \end{code}{js}
+    \caption{GPIO Erstellung in JavaScript}
+\end{listing}
+
+Mittels dem erstellten \texttt{Gpio} Objekt kann ein Callback registriert werden:
+
+\begin{listing}
+    \begin{code}[firstnumber=last]{js}
+    pir.watch(function(err, value) {
+        // Bewegungsmelder callback
+        if (err) exit()
+        console.log('Intruder detected')
+        if (value == 1) {
+            mail.sendMail()
+        }
+    })
+    \end{code}{js}
+    \caption{GPIO Callback registrierung mittels watch in JavaScript}
+\end{listing}
+
+Zusätzlich wird ein Livestream über die Website erstellt, wobei keine fixe Abtastrate verwendet wird.
+
+\clearpage
 \subsection{Aggregierung der Daten}
+Bei jeder Rising Edge des Bewegungssensors wird eine Mail an den Besitzer gesendet. Der Code schaut folgendermaßen aus:
+\begin{listing}
+    \begin{code}[firstnumber=last]{js}
+    const pir = new Gpio(17, 'in', 'both')
+    pir.watch(function(err, value) {
+        if (err) exit()
+
+        console.log('Intruder detected')
+
+        if (value == 1) {
+            mail.sendMail()
+        }
+    })
+    \end{code}{js}
+    \caption{Sender der Mail bei Erkennung einer Bewegung bzw. Rising Edge des Sensors}
+\end{listing}
 
 \subsection{Schnittstellendefinition}
 
 \subsection{Energieversorgung}
 
+Der Raspberry Pi benötigt eine Stromversorgung über Micro-USB, welche entweder über eine normale Stromanbindung über eine Steckdose oder über ein Akku-pack erreicht wird.
+
 \subsection{Speicherverbrauch}
 
+Das \textbf{Basement Shitting Prevention} Programm benötigt \texttt{2.552} Bytes. Zusätzlich werden einige Packages benötigt, womit ein insgesamter Speicherverbrauch von \texttt{idk} Megabytes verwendet wird.
+
+Der Raspberry Pi ist mit einer \texttt{32} GB SD-Karte ausgestattet, wobei neben Betriebssystem und Programm genügend Speicherplatz vorhanden bleibt.
+
 \subsection{Verbindung}
+
 
 
 
