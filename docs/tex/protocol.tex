@@ -101,3 +101,142 @@ Der Raspberry Pi ist mit einer \texttt{32} GB SD-Karte ausgestattet, wobei neben
 
 \clearpage
 \section{Implementierung}
+
+\subsection{Installation}
+
+Die folgenden Schritte wurden aus dem vorhandenen Dokument von Herr Professor Borko entnommen, und angepasst.
+
+\subsection{Schritte}
+
+\begin{enumerate}
+    \item Raspbian Image auf die SD-Karte flashen: Dazu wurde das neueste Raspbian-Stretch-Light Image von \hyperlink{https://www.raspberrypi.org/downloads/raspbian/}{hier} herunter geladen und mit der Software \hyperlink{https://www.balena.io/etcher/}{Etcher} auf die SD Karte geflasht.
+    \item Image File mounten: Da man auf Windows nur den boot Ordner sieht, nicht aber den root Ordner, muss Linux verwendet werden. Dazu wurde ein VM mit Ubuntu verwendet.
+    Um die SD Karte mit der VM zu verbinden braucht man einen USB zu SD Adapter. In der VM muss man noch diesen USB Port vom Host auf die VM ändern.
+
+    Anschließend muss man die 2 Folder (root und boot) auf zwei Ordner in der VM mounten, damit man diese nachher bearbeiten kann.
+
+    \begin{listing}
+        \begin{code}[firstnumber=last]{sh}
+            sudo mkdir /mnt/boot
+            sudo mkdir /mnt/root
+
+            sudo mount /dev/sdc1 /mnt/boot
+            sudo mount /dev/sdc2 /mnt/root
+        \end{code}
+        \caption{Mounting der SD Karte in Bash}
+    \end{listing}
+    Um herauszufinden auf welchem \texttt{/dev/sdc...} Verzeichnis der USB Adapter angeschlossen ist, führt man diesen Befehl aus:
+
+    \begin{listing}
+        \begin{code}[firstnumber=last]{sh}
+            sudo fdisk /dev/sdc
+        \end{code}
+        \caption{Mounting der SD Karte in Bash}
+    \end{listing}
+
+    \item Konfiguration im Boot-Folder
+    In den Boot Ordner kommen jetzt folgende Dinge:
+    \begin{itemize}
+        \item Ein leeres ssh File
+        \item Die \texttt{wpa\_supplicant.conf}, in der die Netzwerkkonfiguration steht
+        In dieses File kommt folgende Konfiguration, die uns den Pi mit dem TGM-Netzwerk verbindet. Als Passwort wurde ein hash verwendet.
+
+        \begin{listing}
+            \begin{code}[firstnumber=last]{sh}
+                network={
+                    ssid="TGM1x"
+                    scan_ssid=1
+                    key_mgmt=WPA-EAP
+                    identity="cbarosch"
+                    password=hash:041096d6783b98b9fbc07c82d8f10b6a
+                    eap=PEAP
+                    phase2="auth=MSCHAPV2"
+                }
+            \end{code}
+            \caption{WPA\_supplicant datei}
+        \end{listing}
+    \end{itemize}
+
+    \item Konfiguration im Root-Folder
+    Dort muss das File \texttt{/etc/network/interfaces} geändert werden. Dort sagen wir unter anderem, dass ein Python Script ausgeführt werden soll, dass uns die IP des PIs schickt sobald dieser hochgefahren ist.
+
+    \begin{listing}
+        \begin{code}[firstnumber=last]{sh}
+            source-directory /etc/network/interfaces.d
+
+            auto wlan0
+            allow-hotplug wlan0
+
+
+            iface wlan0 inet dhcp
+                wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+                post-up /etc/network/if-up.d/sendIP.py
+
+            iface default inet dhcp
+        \end{code}
+        \caption{interface config datei}
+    \end{listing}
+
+    In dem Python File muss der Absender noch auf unseren Gmail Account geändert werden.
+
+    \begin{listing}
+        \begin{code}[firstnumber=last]{python}
+            #!/usr/bin/python3
+            import smtplib
+            import datetime
+            import subprocess
+
+            passwd = "NoShittingAnymore"
+            user = "shittingpreventionagent@gmail.com"
+
+            sender = user
+            recipients = "chrispad2k@gmail.com cbarosch@student.tgm.ac.at mfentler@student.tgm.ac.at mrousavy@student.tgm.ac.at odeveci@student.tgm.ac.at".split()
+            subject = "RaspberryPi is now up ..."
+
+            now = datetime.datetime.now()
+
+            msg = ("From: %s\r\nTo: %s\r\nSubject: %s\r\n"
+                    % (sender, ", ".join(recipients), subject))
+
+            msg = msg + "Testmail generated @" + str(now) + "\r\n\r\n"
+            msg = msg + subprocess.check_output('ip address', shell=True).decode()
+
+            def sendmail():
+                try:
+                    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+                    server.set_debuglevel(0)
+                    server.ehlo()
+                    server.login(user, passwd)
+                    server.sendmail(sender, recipients, msg)
+                    server.quit()
+                    print("Email sent successfully!")
+                except smtplib.SMTPAuthenticationError as e:
+                    print("Username and Password not accepted.")
+                    return False
+                except:
+                    print("Unable to send the email!")
+                    return False
+                return True
+
+            while sendmail() != True:
+                try:
+                    print("Trying ... ")
+                except KeyboardInterrupt as e:
+                    print("\nUser interrupt detected ...")
+                    print("Email was not sent. Please check your connectivity!")
+            break
+        \end{code}
+        \caption{Python script um eine email zu senden}
+    \end{listing}
+
+    Dieses Python File muss auch noch auf \textit{executable} gesetzt werden. Dazu:
+
+    \begin{listing}
+        \begin{code}[firstnumber=last]{sh}
+            sudo chmod +x sendIP.py
+        \end{code}
+        \caption{Python script um eine email zu senden}
+    \end{listing}
+
+    \item Unmounten
+    Als letzter Schritt muss man die SD Karte noch unmounten. Dazu geht man in Linux in den File-Archiver und klickt auf den "Pfeil-Button" rechts neben dem Boot-Folder.
