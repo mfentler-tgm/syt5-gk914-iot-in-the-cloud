@@ -8,13 +8,13 @@ import datetime
 from threading import Condition
 from http import server
 
-
-motion_timestamp = None
-GPIO.add_event_detect(17, GPIO.RISING, callback=motion_detected)
-
 def motion_detected():
   motion_timestamp = time.time()
   print("Motion Sensor triggered")
+
+
+motion_timestamp = None
+GPIO.add_event_detect(17, GPIO.RISING, callback=motion_detected)
 
 
 class StreamingOutput(object):
