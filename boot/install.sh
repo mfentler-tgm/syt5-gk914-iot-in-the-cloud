@@ -8,7 +8,7 @@ apt install -y python2.7 python-pip python3 python3-pip
 apt install -y vi vim
 apt install -y git
 apt install -y nodejs npm
-apt install libomxil-bellagio-dev
+apt install -y libomxil-bellagio-dev
 
 wget -O ffmpeg.tar.bz2 https://ffmpeg.org/releases/ffmpeg-snapshot-git.tar.bz2
 tar xvjf ffmpeg.tar.bz2
