@@ -17,10 +17,13 @@ router.get('/', function(req, res) {
     db.serialize(function() {
         var records = []
         db.each('SELECT * FROM aufzeichnung', function(err, row) {
-            console.log(row.id + ': ' + row.info)
-            records.push(row.info)
-        });
-        res.json({ message: records})
+            records.push({key: row.timestamp,
+            value: row.bild})
+            console.log(records)
+            });
+        console.log("outside of scope: " + records)
+        res.json({message:records})
+
     });
 
     db.close();
