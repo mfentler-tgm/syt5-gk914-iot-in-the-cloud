@@ -29,6 +29,9 @@ npm config set python python2.7
 echo "NPM Install: raspi-Live"
 npm install -g raspi-live
 
+echo "Install sqlite3"
+npm install sqlite3
+
 cd /app
 git pull
 npm install
