@@ -38,8 +38,11 @@ pir.watch(function(err, value) {
 
     db.run("CREATE TABLE IF NOT EXISTS aufzeichnung (id INT primary key, timestamp DATE, bild TEXT);")
 
-    var timestamp = new Date().getTime()
+    var stmt = db.prepare("INSERT INTO aufzeichung(timestamp,bild) VALUES (?,?)");
 
+    var timestamp = new Date().getTime()
+    stmt.run(timestamp,'Osman ist gay')
+    
     //Close connection again
     db.close((err) => {
       if (err) {
