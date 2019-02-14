@@ -15,9 +15,9 @@ router.get('/', function(req, res) {
     var db = new sqlite3.Database('sensorDaten.db');
 
     db.serialize(function() {
-        db.all('SELECT * FROM aufzeichnung', function(err, rows) {
-            var records = []
+        var records = []
 
+        db.all('SELECT * FROM aufzeichnung', function(err, rows) {
             rows.map(row => {
                 records.push({
                     key: row.timestamp,
