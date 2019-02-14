@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 var router = express.Router();
 
 router.get('/', function(req, res) {
-    var db = new sqlite3.Database('./db/sensorDaten.db');
+    var db = new sqlite3.Database('sensorDaten.db');
 
     db.serialize(function() {
         var records = []
