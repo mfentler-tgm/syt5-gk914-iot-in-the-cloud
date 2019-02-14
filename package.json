@@ -6,14 +6,17 @@
   "license": "MIT",
   "scripts": {
     "mail": "node ./src/app.js",
+    "rest": "node ./src/rest.js",
     "livestream": "python3 ./src/livestream.py"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "hls.js": "^0.12.2",
     "ip": "^1.1.5",
     "nodemailer": "^4.7.0",
     "onoff": "^3.2.2",
-    "pi-camera": "^1.2.1"
+    "pi-camera": "^1.2.1",
+    "sqlite3": "^4.0.6"
   }
 }
