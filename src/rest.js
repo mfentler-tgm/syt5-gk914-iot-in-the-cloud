@@ -6,7 +6,7 @@ const PORT = 81
 
 var app = express()
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 var router = express.Router();
@@ -15,15 +15,21 @@ router.get('/', function(req, res) {
     var db = new sqlite3.Database('sensorDaten.db');
 
     db.serialize(function() {
-        var records = []
-        db.each('SELECT * FROM aufzeichnung', function(err, row) {
-            records.push({key: row.timestamp,
-            value: row.bild})
-            console.log(records)
-            });
-        console.log("outside of scope: " + records)
-        res.json({message:records})
+        db.all('SELECT * FROM aufzeichnung', function(err, rows) {
+            var records = []
 
+            rows.map(row => {
+                records.push({
+                    key: row.timestamp,
+                    value: row.bild
+                })
+            })
+
+            console.log(records)
+            res.json({message: records})
+        });
+
+        console.log("outside of scope: " + records)
     });
 
     db.close();
