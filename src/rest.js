@@ -15,10 +15,12 @@ router.get('/', function(req, res) {
     var db = new sqlite3.Database('./db/sensorDaten.db');
 
     db.serialize(function() {
+        var records = []
         db.each('SELECT * FROM aufzeichnung', function(err, row) {
-            console.log(row.id + ': ' + row.info);
-            res.json({ message: row.id + ': ' + row.info});
+            console.log(row.id + ': ' + row.info)
+            records.push(row.info)
         });
+        res.json({ message: records})
     });
 
     db.close();
