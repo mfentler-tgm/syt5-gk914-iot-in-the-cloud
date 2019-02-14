@@ -9,6 +9,7 @@
     "livestream": "python3 ./src/livestream.py"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "hls.js": "^0.12.2",
     "ip": "^1.1.5",
