@@ -15,13 +15,6 @@ echo "APT Install: GIT"
 apt install -y git
 echo "APT Install: Node.js, NPM"
 apt install -y nodejs npm
-echo "APT Install: FFMPEG"
-apt install -y libomxil-bellagio-dev
-
-wget -O ffmpeg.tar.bz2 https://ffmpeg.org/releases/ffmpeg-snapshot-git.tar.bz2
-tar xvjf ffmpeg.tar.bz2
-cd ffmpeg
-sudo ./configure --arch=armel --target-os=linux --enable-gpl --enable-omx --enable-omx-rpi --enable-nonfree
 
 echo "NPM Config: Python -> 2.7"
 npm config set python python2.7
