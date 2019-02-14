@@ -20,8 +20,8 @@ router.get('/', function(req, res) {
         db.all('SELECT * FROM aufzeichnung', function(err, rows) {
             rows.map(row => {
                 records.push({
-                    key: row.timestamp,
-                    value: row.bild
+                    timestamp: row.timestamp,
+                    image: row.bild
                 })
             })
 

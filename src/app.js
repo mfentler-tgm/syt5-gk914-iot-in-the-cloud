@@ -1,10 +1,18 @@
 const mail = require('./mail')
 const webserver = require('./webserver')
 const Gpio = require('onoff').Gpio
+const PiCamera = require('pi-camera');
+const sqlite = require('sqlite3')
+
+const camera = new PiCamera({
+  mode: 'photo',
+  output: `${ __dirname }/test.jpg`,
+  width: 640,
+  height: 480,
+  nopreview: true,
+});
 
 const pir = new Gpio(17, 'in', 'both')
-
-const sqlite = require('sqlite3')
 
 var mailEnabled = false
 
@@ -23,11 +31,11 @@ if (mailEnabled) {
       }
       console.log('Connected to the in-memory SQlite database.')
     })
-  
+
     db.run("CREATE TABLE IF NOT EXISTS aufzeichnung (id INT primary key, timestamp DATE, bild TEXT);")
-  
+
     var timestamp = new Date().getTime()
-  
+
     //Close connection again
     db.close((err) => {
       if (err) {
@@ -57,11 +65,13 @@ pir.watch(function(err, value) {
 
     db.run("CREATE TABLE IF NOT EXISTS aufzeichnung (id INT primary key, timestamp DATE, bild TEXT);")
 
-    var stmt = db.prepare("INSERT INTO aufzeichung(timestamp,bild) VALUES (?,?)");
+    var stmt = db.prepare("INSERT INTO aufzeichung(timestamp,image) VALUES (?,?)");
 
-    var timestamp = new Date().getTime()
-    stmt.run(timestamp,'Osman ist gay')
-    
+    camera.snap().then(result => {
+      var timestamp = new Date().getTime()
+      stmt.run(timestamp, Buffer.from(result).toString('base64'))
+    })
+
     //Close connection again
     db.close((err) => {
       if (err) {
