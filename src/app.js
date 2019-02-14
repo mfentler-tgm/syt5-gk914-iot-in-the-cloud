@@ -16,6 +16,25 @@ process.argv.slice(1).map((argument) => {
 
 if (mailEnabled) {
   mail.sendMail()
+    //open db connection
+    let db = new sqlite.Database('./db/sensorDaten.db', (err) => {
+      if (err) {
+        return console.error(err.message)
+      }
+      console.log('Connected to the in-memory SQlite database.')
+    })
+  
+    db.run("CREATE TABLE IF NOT EXISTS aufzeichnung (id INT primary key, timestamp DATE, bild TEXT);")
+  
+    var timestamp = new Date().getTime()
+  
+    //Close connection again
+    db.close((err) => {
+      if (err) {
+        return console.error(err.message)
+      }
+      console.log('Close the database connection.')
+    })
 }
 
 // webserver.startServer()
@@ -29,7 +48,7 @@ pir.watch(function(err, value) {
     mail.sendMail()
 
     //open db connection
-    let db = new sqlite.Database('./db/sensorDaten.db', (err) => {
+    let db = new sqlite.Database('sensorDaten.db', (err) => {
       if (err) {
         return console.error(err.message)
       }

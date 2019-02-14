@@ -14,6 +14,7 @@
     "express": "^4.16.4",
     "hls.js": "^0.12.2",
     "ip": "^1.1.5",
+    "node-pre-gyp": "^0.12.0",
     "nodemailer": "^4.7.0",
     "onoff": "^3.2.2",
     "pi-camera": "^1.2.1",

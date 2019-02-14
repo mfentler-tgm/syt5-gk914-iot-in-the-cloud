@@ -1,5 +1,6 @@
+  const sqlite = require('sqlite3')
   //open db connection
-  let db = new sqlite.Database('./db/sensorDaten.db', (err) => {
+  let db = new sqlite.Database('sensorDaten.db', (err) => {
     if (err) {
       return console.error(err.message)
     }
